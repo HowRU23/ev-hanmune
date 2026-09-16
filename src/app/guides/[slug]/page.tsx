@@ -1,0 +1,76 @@
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import type { Metadata } from "next";
+import { getAllGuideSlugs, getGuideBySlug } from "@/lib/guides";
+
+export async function generateStaticParams() {
+  return getAllGuideSlugs().map((slug) => ({ slug }));
+}
+
+async function loadGuide(slug: string) {
+  try {
+    return getGuideBySlug(slug);
+  } catch {
+    return null;
+  }
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const guide = await loadGuide(slug);
+  if (!guide) return {};
+  return {
+    title: `${guide.title} | 전기차 한눈에`,
+    description: guide.description,
+  };
+}
+
+export default async function GuidePage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const guide = await loadGuide(slug);
+  if (!guide) notFound();
+
+  return (
+    <article className="mx-auto max-w-3xl px-6 py-16">
+      <Link href="/guides" className="text-sm text-blue-600 hover:underline">
+        ← 가이드 목록으로
+      </Link>
+
+      <span className="mt-6 block text-xs font-semibold text-blue-600">
+        {guide.category}
+      </span>
+      <h1 className="mt-2 text-3xl font-bold tracking-tight">{guide.title}</h1>
+      <p className="mt-3 text-black/60 dark:text-white/60">{guide.description}</p>
+      <p className="mt-2 text-xs text-black/40 dark:text-white/40">
+        {guide.publishedAt}
+      </p>
+
+      {guide.summary && guide.summary.length > 0 && (
+        <div className="mt-8 rounded-xl border border-blue-600/20 bg-blue-600/5 p-5">
+          <p className="text-xs font-semibold text-blue-600">핵심만 먼저</p>
+          <ul className="mt-2 flex flex-col gap-1.5 text-sm">
+            {guide.summary.map((point, i) => (
+              <li key={i} className="flex gap-2">
+                <span className="text-blue-600">•</span>
+                <span>{point}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      <div
+        className="prose prose-neutral dark:prose-invert mt-10 max-w-none"
+        dangerouslySetInnerHTML={{ __html: guide.contentHtml }}
+      />
+    </article>
+  );
+}
