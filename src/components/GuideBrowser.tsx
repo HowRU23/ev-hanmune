@@ -1,11 +1,12 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import type { GuideMeta } from "@/lib/guides";
 
 const MAX_POPULAR = 5;
+const PAGE_SIZE = 10;
 
 export default function GuideBrowser({ guides }: { guides: GuideMeta[] }) {
   const searchParams = useSearchParams();
@@ -13,6 +14,11 @@ export default function GuideBrowser({ guides }: { guides: GuideMeta[] }) {
   const [category, setCategory] = useState<string | null>(
     searchParams.get("category")
   );
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
+
+  useEffect(() => {
+    setVisibleCount(PAGE_SIZE);
+  }, [query, category]);
 
   const categories = useMemo(
     () => Array.from(new Set(guides.map((g) => g.category))),
@@ -98,7 +104,7 @@ export default function GuideBrowser({ guides }: { guides: GuideMeta[] }) {
             검색 결과가 없어요. 다른 키워드로 찾아보세요.
           </p>
         )}
-        {filtered.map((guide) => (
+        {filtered.slice(0, visibleCount).map((guide) => (
           <Link
             key={guide.slug}
             href={`/guides/${guide.slug}`}
@@ -114,6 +120,15 @@ export default function GuideBrowser({ guides }: { guides: GuideMeta[] }) {
           </Link>
         ))}
       </div>
+
+      {filtered.length > visibleCount && (
+        <button
+          onClick={() => setVisibleCount((v) => v + PAGE_SIZE)}
+          className="mt-6 w-full rounded-xl border border-black/10 py-3 text-sm font-semibold text-black/70 hover:border-blue-600 hover:text-blue-600 dark:border-white/10 dark:text-white/70"
+        >
+          더 보기
+        </button>
+      )}
     </div>
   );
 }
