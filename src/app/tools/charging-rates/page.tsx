@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import BackLink from "@/components/BackLink";
 import RateRankTable from "@/components/RateRankTable";
 
 export const metadata: Metadata = {
@@ -51,9 +51,7 @@ const FAST = {
 export default function ChargingRatesPage() {
   return (
     <div className="mx-auto max-w-2xl px-6 py-16">
-      <Link href="/" className="text-sm text-blue-600 hover:underline">
-        ← 홈으로
-      </Link>
+      <BackLink href="/" label="홈으로" />
 
       <h1 className="mt-6 text-3xl font-bold tracking-tight">충전 요금 비교</h1>
       <p className="mt-3 text-black/60 dark:text-white/60">

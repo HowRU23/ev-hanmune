@@ -1,7 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import { useMemo, useState } from "react";
+import BackLink from "@/components/BackLink";
 import CostResult from "@/components/CostResult";
 
 const FUEL_PRICE_DEFAULTS: Record<"gasoline" | "diesel", number> = {
@@ -47,9 +47,7 @@ export default function CostCalculatorPage() {
 
   return (
     <div className="mx-auto max-w-2xl px-6 py-16">
-      <Link href="/" className="text-sm text-blue-600 hover:underline">
-        ← 홈으로
-      </Link>
+      <BackLink href="/" label="홈으로" />
 
       <h1 className="mt-6 text-3xl font-bold tracking-tight">유지비 계산기</h1>
       <p className="mt-3 text-black/60 dark:text-white/60">

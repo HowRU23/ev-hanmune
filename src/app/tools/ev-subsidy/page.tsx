@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import BackLink from "@/components/BackLink";
 import SubsidyLinkCard from "@/components/SubsidyLinkCard";
 import QrCode from "@/components/QrCode";
 
@@ -13,9 +13,7 @@ export const metadata: Metadata = {
 export default function EvSubsidyToolPage() {
   return (
     <div className="mx-auto max-w-3xl px-6 py-16">
-      <Link href="/" className="text-sm text-blue-600 hover:underline">
-        ← 홈으로
-      </Link>
+      <BackLink href="/" label="홈으로" />
 
       <h1 className="mt-6 text-3xl font-bold tracking-tight">전기차 보조금 찾기</h1>
       <p className="mt-3 text-black/60 dark:text-white/60">
