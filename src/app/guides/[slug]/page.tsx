@@ -25,8 +25,23 @@ export async function generateMetadata({
   const guide = await loadGuide(slug);
   if (!guide) return {};
   return {
-    title: `${guide.title} | 전기차 한눈에`,
+    title: guide.title,
     description: guide.description,
+    alternates: {
+      canonical: `/guides/${slug}`,
+    },
+    openGraph: {
+      title: guide.title,
+      description: guide.description,
+      url: `/guides/${slug}`,
+      images: [{ url: "/og-image.png", width: 1200, height: 630 }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: guide.title,
+      description: guide.description,
+      images: ["/og-image.png"],
+    },
   };
 }
 

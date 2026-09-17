@@ -6,7 +6,7 @@ import QrCode from "@/components/QrCode";
 const TOSS_LINK = "https://minion.toss.im/zQshQ9j7";
 
 export const metadata: Metadata = {
-  title: "전기차 보조금 찾기 | 전기차 한눈에",
+  title: "전기차 보조금 찾기",
   description: "지역·제조사·모델별 전기차 보조금을 토스 미니앱에서 간편히 확인하세요.",
 };
 

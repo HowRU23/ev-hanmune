@@ -4,7 +4,7 @@ import { getAllGuides } from "@/lib/guides";
 import GuideBrowser from "@/components/GuideBrowser";
 
 export const metadata: Metadata = {
-  title: "가이드 | 전기차 한눈에",
+  title: "가이드",
   description: "전기차 오너들이 가장 많이 묻는 질문을 모아 정리했습니다.",
 };
 

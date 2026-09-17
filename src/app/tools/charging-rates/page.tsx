@@ -3,7 +3,7 @@ import BackLink from "@/components/BackLink";
 import RateRankTable from "@/components/RateRankTable";
 
 export const metadata: Metadata = {
-  title: "충전 요금 비교 | 전기차 한눈에",
+  title: "충전 요금 비교",
   description: "완속·급속 충전 사업자별 회원가를 비교해서 저렴한 충전 카드를 고를 때 참고하세요.",
 };
 
