@@ -20,6 +20,12 @@ const TOOLS = [
 ];
 
 const GUIDES_SHOWN = 6;
+const FIXED_GUIDE_SLUGS = [
+  "ev-battery-100-percent",
+  "ev-charging-types",
+  "ipedal-guide",
+  "regen-braking-basics",
+];
 
 export const dynamic = "force-dynamic";
 
@@ -34,7 +40,12 @@ function pickRandom<T>(items: T[], count: number): T[] {
 
 export default function Home() {
   const guides = getAllGuides();
-  const shownGuides = pickRandom(guides, GUIDES_SHOWN);
+  const fixedGuides = FIXED_GUIDE_SLUGS.map((slug) =>
+    guides.find((g) => g.slug === slug)
+  ).filter((g): g is (typeof guides)[number] => Boolean(g));
+  const pool = guides.filter((g) => !FIXED_GUIDE_SLUGS.includes(g.slug));
+  const randomGuides = pickRandom(pool, GUIDES_SHOWN - fixedGuides.length);
+  const shownGuides = [...fixedGuides, ...randomGuides];
   const hasMoreGuides = guides.length > GUIDES_SHOWN;
 
   return (
