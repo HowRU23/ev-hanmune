@@ -173,7 +173,7 @@ export default function CostCalculatorPage() {
                 placeholder="본인이 실제로 내는 단가를 입력하세요"
                 className="rounded-lg border border-black/10 px-3 py-2 text-sm outline-none focus:border-blue-600 dark:border-white/10"
               />
-              <div className="flex gap-2">
+              <div className="flex flex-wrap gap-2">
                 <button
                   onClick={() => setChargePrice("300")}
                   className="rounded-full bg-black/5 px-3 py-1 text-xs font-semibold text-black/60 dark:bg-white/10 dark:text-white/60"

@@ -25,3 +25,9 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.prose table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+}

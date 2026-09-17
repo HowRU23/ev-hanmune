@@ -45,12 +45,12 @@ export default function RateRankTable({
             key={row.name}
             className="flex items-center justify-between gap-3 border-b border-black/5 py-2 text-sm last:border-0 dark:border-white/5"
           >
-            <div className="flex items-center gap-3">
-              <span className="w-4 text-black/40 dark:text-white/40">{i + 1}</span>
-              <span className="font-medium">{row.name}</span>
+            <div className="flex min-w-0 items-center gap-3">
+              <span className="shrink-0 w-4 text-black/40 dark:text-white/40">{i + 1}</span>
+              <span className="truncate font-medium">{row.name}</span>
             </div>
-            <div className="flex items-center gap-3 text-right">
-              <span className="text-black/40 dark:text-white/40">{formatCount(row.count)} 보유</span>
+            <div className="flex shrink-0 items-center gap-2 text-right sm:gap-3">
+              <span className="text-[10px] text-black/40 sm:text-sm dark:text-white/40">{formatCount(row.count)} 보유</span>
               <span className="w-16 font-semibold">{formatPrice(row.price)}</span>
             </div>
           </div>
