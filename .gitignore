@@ -50,3 +50,6 @@ docs/오너방-질문분석.md
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+.vercel
+.env*
