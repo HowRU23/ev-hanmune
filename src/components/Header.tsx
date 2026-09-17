@@ -15,7 +15,7 @@ export default function Header() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="border-b border-black/10 dark:border-white/10">
+    <header className="sticky top-0 z-50 border-b border-black/10 bg-background dark:border-white/10">
       <div className="mx-auto flex max-w-4xl items-center justify-between px-6 py-4">
         <Link
           href="/"

@@ -3,14 +3,14 @@ import { getAllGuides } from "@/lib/guides";
 
 const TOOLS = [
   {
-    href: "/tools/cost-calculator",
-    title: "유지비 계산기",
-    description: "내 주행거리 기준으로 내연기관차와 전기차의 연간 연료비를 비교합니다.",
-  },
-  {
     href: "/tools/ev-subsidy",
     title: "보조금 찾기",
     description: "지역·제조사·모델별 전기차 보조금을 토스 미니앱에서 바로 확인합니다.",
+  },
+  {
+    href: "/tools/cost-calculator",
+    title: "유지비 계산기",
+    description: "내 주행거리 기준으로 내연기관차와 전기차의 연간 연료비를 비교합니다.",
   },
   {
     href: "/tools/charging-rates",
@@ -19,47 +19,50 @@ const TOOLS = [
   },
 ];
 
+const GUIDES_SHOWN = 6;
+
+export const dynamic = "force-dynamic";
+
+function pickRandom<T>(items: T[], count: number): T[] {
+  const shuffled = [...items];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled.slice(0, count);
+}
+
 export default function Home() {
   const guides = getAllGuides();
+  const shownGuides = pickRandom(guides, GUIDES_SHOWN);
+  const hasMoreGuides = guides.length > GUIDES_SHOWN;
 
   return (
     <div className="mx-auto max-w-4xl px-6 py-16">
       <section className="text-center">
-        <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
+        <span className="inline-block rounded-full bg-blue-600/10 px-3 py-1 text-xs font-semibold text-blue-600">
+          베타
+        </span>
+        <h1 className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">
           전기차 타면서 헷갈리는 것들, 여기서 확인하세요
         </h1>
         <p className="mx-auto mt-4 max-w-xl text-black/60 dark:text-white/60">
           충전 요금, 유지비, 보조금처럼 전기차를 타면서 실제로 마주치는 질문과 도구를 모았습니다.
         </p>
-        <a
-          href="#tools"
-          className="mt-8 inline-block rounded-full bg-blue-600 px-6 py-3 text-sm font-semibold text-white hover:bg-blue-700"
-        >
-          도구 둘러보기
-        </a>
-      </section>
-
-      <section id="tools" className="mt-20">
-        <h2 className="text-xl font-bold">바로 쓰는 도구</h2>
-        <div className="mt-6 grid gap-4 sm:grid-cols-3">
-          {TOOLS.map((tool) => (
-            <Link
-              key={tool.href}
-              href={tool.href}
-              className="rounded-xl border border-black/10 p-5 transition hover:border-blue-600 hover:shadow-sm dark:border-white/10"
-            >
-              <h3 className="font-semibold">{tool.title}</h3>
-              <p className="mt-2 text-sm text-black/60 dark:text-white/60">{tool.description}</p>
-            </Link>
-          ))}
-        </div>
       </section>
 
       {guides.length > 0 && (
-        <section className="mt-20">
-          <h2 className="text-xl font-bold">최신 가이드</h2>
+        <section className="mt-16">
+          <div className="flex items-center justify-between">
+            <h2 className="text-xl font-bold">가이드</h2>
+            {hasMoreGuides && (
+              <Link href="/guides" className="text-sm text-blue-600 hover:underline">
+                전체 보기 →
+              </Link>
+            )}
+          </div>
           <div className="mt-6 grid gap-4 sm:grid-cols-2">
-            {guides.map((guide) => (
+            {shownGuides.map((guide) => (
               <Link
                 key={guide.slug}
                 href={`/guides/${guide.slug}`}
@@ -77,6 +80,22 @@ export default function Home() {
           </div>
         </section>
       )}
+
+      <section className="mt-16">
+        <h2 className="text-xl font-bold">바로 쓰는 도구</h2>
+        <div className="mt-6 grid gap-4 sm:grid-cols-3">
+          {TOOLS.map((tool) => (
+            <Link
+              key={tool.href}
+              href={tool.href}
+              className="rounded-xl border border-black/10 p-5 transition hover:border-blue-600 hover:shadow-sm dark:border-white/10"
+            >
+              <h3 className="font-semibold">{tool.title}</h3>
+              <p className="mt-2 text-sm text-black/60 dark:text-white/60">{tool.description}</p>
+            </Link>
+          ))}
+        </div>
+      </section>
     </div>
   );
 }
