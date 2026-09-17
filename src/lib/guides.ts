@@ -13,6 +13,7 @@ export type GuideMeta = {
   publishedAt: string;
   popular?: boolean;
   summary?: string[];
+  related?: string[];
 };
 
 export type Guide = GuideMeta & {
@@ -50,4 +51,11 @@ export function getGuideBySlug(slug: string): Guide {
   const { data, content } = readGuideFile(slug);
   const contentHtml = marked.parse(content, { async: false }) as string;
   return { slug, contentHtml, ...data } as Guide;
+}
+
+export function getRelatedGuides(slugs: string[]): GuideMeta[] {
+  const all = getAllGuides();
+  return slugs
+    .map((slug) => all.find((guide) => guide.slug === slug))
+    .filter((guide): guide is GuideMeta => Boolean(guide));
 }

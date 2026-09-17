@@ -3,6 +3,10 @@ title: "전기차 타기 전, 첫 달에 뭘 준비해야 하나요?"
 description: "전기차를 막 인도받은 분들이 첫 달에 챙겨야 할 것들을 정리했습니다."
 category: "충전·배터리"
 publishedAt: "2026-09-15"
+related:
+  - "ev-charging-types"
+  - "ev-range-reality"
+  - "ev-battery-100-percent"
 summary:
   - "환경부 전기차 충전카드(비상용)를 발급해두면 좋습니다"
   - "자주 쓸 충전사업자에 미리 회원 가입해두세요"

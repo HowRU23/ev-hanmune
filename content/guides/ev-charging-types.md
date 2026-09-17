@@ -4,6 +4,10 @@ description: "완속 충전과 급속 충전의 차이, 충전구역 주차 제�
 category: "충전·배터리"
 publishedAt: "2026-09-15"
 popular: true
+related:
+  - "ev-range-reality"
+  - "ev-battery-100-percent"
+  - "ev-first-month-checklist"
 summary:
   - "완속 충전(AC)은 가정집/회사/아파트 주차장에서, 급속 충전(DC)은 고속도로 휴게소 등에서 주로 씁니다"
   - "평소엔 완속 위주로, 급속은 장거리 이동할 때만 쓰는 게 배터리에 좋습니다"

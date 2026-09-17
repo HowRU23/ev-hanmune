@@ -3,6 +3,10 @@ title: "전기차 주행거리, 제원표 숫자 그대로 믿어도 되나요?"
 description: "제원표 주행거리가 실제 운행과 다를 수 있는 이유와, 더 정확하게 가늠하는 방법을 정리했습니다."
 category: "주행·전비"
 publishedAt: "2026-09-15"
+related:
+  - "ev-charging-types"
+  - "ev-battery-100-percent"
+  - "ev-first-month-checklist"
 summary:
   - "제원표 수치는 이상적인 조건에서 측정한 값이라 실제와 다를 수 있습니다"
   - "겨울철 저온, 고속 주행, 에어컨/히터 사용에 따라 주행거리가 달라집니다"

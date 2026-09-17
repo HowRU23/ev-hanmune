@@ -3,6 +3,10 @@ title: "스마트 회생 시스템 플러스, 꼭 구매해야 하나요?"
 description: "스마트 회생 시스템 기본 기능과, 별도 구매가 필요한 플러스 기능의 차이를 정리했습니다."
 category: "주행·전비"
 publishedAt: "2026-09-15"
+related:
+  - "regen-braking-basics"
+  - "ipedal-guide"
+  - "regen-ipedal-tips"
 summary:
   - "스마트 회생 시스템을 켜두면 앞차 거리와 도로 상황을 보고 회생제동량을 자동으로 조절해준다"
   - "기본 기능(과속카메라 속도 조절, 내리막길 속도 유지 등)은 별도 구매 없이 쓸 수 있다"

@@ -1,7 +1,8 @@
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { getAllGuideSlugs, getGuideBySlug } from "@/lib/guides";
+import BackLink from "@/components/BackLink";
+import RelatedGuides from "@/components/RelatedGuides";
+import { getAllGuideSlugs, getGuideBySlug, getRelatedGuides } from "@/lib/guides";
 
 export async function generateStaticParams() {
   return getAllGuideSlugs().map((slug) => ({ slug }));
@@ -38,20 +39,17 @@ export default async function GuidePage({
   const guide = await loadGuide(slug);
   if (!guide) notFound();
 
+  const relatedGuides = getRelatedGuides(guide.related ?? []);
+
   return (
     <article className="mx-auto max-w-3xl px-6 py-16">
-      <Link href="/guides" className="text-sm text-blue-600 hover:underline">
-        ← 가이드 목록으로
-      </Link>
+      <BackLink href="/guides" label="가이드 목록으로" />
 
       <span className="mt-6 block text-xs font-semibold text-blue-600">
         {guide.category}
       </span>
       <h1 className="mt-2 text-3xl font-bold tracking-tight">{guide.title}</h1>
       <p className="mt-3 text-black/60 dark:text-white/60">{guide.description}</p>
-      <p className="mt-2 text-xs text-black/40 dark:text-white/40">
-        {guide.publishedAt}
-      </p>
 
       {guide.summary && guide.summary.length > 0 && (
         <div className="mt-8 rounded-xl border border-blue-600/20 bg-blue-600/5 p-5">
@@ -71,6 +69,8 @@ export default async function GuidePage({
         className="prose prose-neutral dark:prose-invert mt-10 max-w-none"
         dangerouslySetInnerHTML={{ __html: guide.contentHtml }}
       />
+
+      <RelatedGuides guides={relatedGuides} category={guide.category} />
     </article>
   );
 }

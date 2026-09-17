@@ -4,6 +4,10 @@ description: "아이페달(원페달 드라이빙)을 켜는 방법과 최신 �
 category: "주행·전비"
 publishedAt: "2026-09-15"
 popular: true
+related:
+  - "regen-braking-basics"
+  - "smart-regen-system"
+  - "regen-ipedal-tips"
 summary:
   - "아이페달은 이른바 \"원페달 드라이빙\"으로, 가속 페달만으로 완전 정차까지 가능하다"
   - "왼쪽 패들시프트를 약 1초 길게 당기면 켜진다"

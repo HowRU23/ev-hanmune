@@ -4,6 +4,10 @@ description: "회생제동이 뭔지, 단계는 어떻게 조절하는지 정리
 category: "주행·전비"
 publishedAt: "2026-09-15"
 popular: true
+related:
+  - "ipedal-guide"
+  - "smart-regen-system"
+  - "regen-ipedal-tips"
 summary:
   - "회생제동은 브레이크를 안 밟아도 속도가 줄어드는 정도(0~3단계)를 뜻한다"
   - "단계가 높을수록 발을 뗐을 때 더 강하게 감속된다"
