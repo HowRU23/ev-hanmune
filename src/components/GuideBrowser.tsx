@@ -2,11 +2,17 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import type { GuideMeta } from "@/lib/guides";
 
+const MAX_POPULAR = 5;
+
 export default function GuideBrowser({ guides }: { guides: GuideMeta[] }) {
+  const searchParams = useSearchParams();
   const [query, setQuery] = useState("");
-  const [category, setCategory] = useState<string | null>(null);
+  const [category, setCategory] = useState<string | null>(
+    searchParams.get("category")
+  );
 
   const categories = useMemo(
     () => Array.from(new Set(guides.map((g) => g.category))),
@@ -14,7 +20,7 @@ export default function GuideBrowser({ guides }: { guides: GuideMeta[] }) {
   );
 
   const popularGuides = useMemo(
-    () => guides.filter((g) => g.popular),
+    () => guides.filter((g) => g.popular).slice(0, MAX_POPULAR),
     [guides]
   );
 
@@ -40,7 +46,7 @@ export default function GuideBrowser({ guides }: { guides: GuideMeta[] }) {
         className="w-full rounded-xl border border-black/10 px-4 py-3 text-sm outline-none focus:border-blue-600 dark:border-white/10"
       />
 
-      {!query && popularGuides.length > 0 && (
+      {!query && !category && popularGuides.length > 0 && (
         <div className="mt-8">
           <h2 className="text-sm font-semibold text-black/60 dark:text-white/60">
             많이 찾는 질문

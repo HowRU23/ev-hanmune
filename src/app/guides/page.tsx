@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { getAllGuides } from "@/lib/guides";
 import GuideBrowser from "@/components/GuideBrowser";
 
@@ -18,7 +19,9 @@ export default function GuidesPage() {
       </p>
 
       <div className="mt-8">
-        <GuideBrowser guides={guides} />
+        <Suspense fallback={null}>
+          <GuideBrowser guides={guides} />
+        </Suspense>
       </div>
     </div>
   );
