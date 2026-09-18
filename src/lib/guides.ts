@@ -14,6 +14,7 @@ export type GuideMeta = {
   popular?: boolean;
   summary?: string[];
   related?: string[];
+  body: string;
 };
 
 export type Guide = GuideMeta & {
@@ -36,8 +37,8 @@ export function getAllGuideSlugs(): string[] {
 export function getAllGuides(): GuideMeta[] {
   return getAllGuideSlugs()
     .map((slug) => {
-      const { data } = readGuideFile(slug);
-      return { slug, ...data } as GuideMeta;
+      const { data, content } = readGuideFile(slug);
+      return { slug, body: content, ...data } as GuideMeta;
     })
     .sort((a, b) => (a.publishedAt < b.publishedAt ? 1 : -1));
 }

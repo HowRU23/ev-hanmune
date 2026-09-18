@@ -36,7 +36,8 @@ export default function GuideBrowser({ guides }: { guides: GuideMeta[] }) {
       const matchesQuery =
         !q ||
         g.title.toLowerCase().includes(q) ||
-        g.description.toLowerCase().includes(q);
+        g.description.toLowerCase().includes(q) ||
+        g.body.toLowerCase().includes(q);
       const matchesCategory = !category || g.category === category;
       return matchesQuery && matchesCategory;
     });
