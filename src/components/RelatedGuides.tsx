@@ -47,9 +47,21 @@ export default function RelatedGuides({
       {hasMore && (
         <Link
           href={`/guides?category=${encodeURIComponent(category)}`}
-          className="mt-2 inline-block text-sm text-blue-600 hover:underline"
+          className="mt-2 inline-flex items-center gap-1 text-sm text-blue-600 hover:underline"
         >
-          이 주제 가이드 더 보기 →
+          이 주제 가이드 더 보기
+          <svg
+            width="13"
+            height="13"
+            viewBox="0 0 16 16"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.7"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M6 3l5 5-5 5" />
+          </svg>
         </Link>
       )}
     </div>

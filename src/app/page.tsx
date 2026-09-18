@@ -67,8 +67,23 @@ export default function Home() {
           <div className="flex items-center justify-between">
             <h2 className="text-xl font-bold">가이드</h2>
             {hasMoreGuides && (
-              <Link href="/guides" className="text-sm text-blue-600 hover:underline">
-                전체 보기 →
+              <Link
+                href="/guides"
+                className="inline-flex items-center gap-1 text-sm text-blue-600 hover:underline"
+              >
+                전체 보기
+                <svg
+                  width="13"
+                  height="13"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.7"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M6 3l5 5-5 5" />
+                </svg>
               </Link>
             )}
           </div>
