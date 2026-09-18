@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import BackLink from "@/components/BackLink";
 import RateRankTable from "@/components/RateRankTable";
 
@@ -85,7 +86,22 @@ export default function ChargingRatesPage() {
         </section>
       </div>
 
-      <div id="notice" className="mt-10 rounded-xl bg-black/[0.03] p-4 text-xs text-black/50 dark:bg-white/[0.05] dark:text-white/50">
+      <Link
+        href="/guides/ev-first-month-checklist"
+        className="mt-10 flex items-center justify-between gap-3 rounded-xl border border-black/10 px-4 py-3 text-sm transition hover:border-blue-600 dark:border-white/10"
+      >
+        <span>
+          <span className="font-medium">기후에너지환경부(전 환경부) 카드 고정 요금은 얼마인가요?</span>
+          <span className="ml-1 text-black/50 dark:text-white/50">
+            충전기 출력별 5단계 요금표 보기
+          </span>
+        </span>
+        <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" className="shrink-0 text-black/30 dark:text-white/30">
+          <path d="M6 3l5 5-5 5" />
+        </svg>
+      </Link>
+
+      <div id="notice" className="mt-6 rounded-xl bg-black/[0.03] p-4 text-xs text-black/50 dark:bg-white/[0.05] dark:text-white/50">
         <p>각 사업자 앱·카드 회원가 기준이며, 사업자별 요금 갱신 시점은 다를 수 있습니다. 자료 수집일: {DATA_DATE}</p>
         <p className="mt-1">
           전체 사업자 요금과 실시간 정보는{" "}
