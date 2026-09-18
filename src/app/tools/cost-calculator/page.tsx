@@ -126,7 +126,7 @@ export default function CostCalculatorPage() {
                 className="rounded-lg border border-black/10 px-3 py-2 text-sm outline-none focus:border-blue-600 dark:border-white/10"
               />
               <span className="text-xs text-black/40 dark:text-white/40">
-                기본값은 오피넷 2026-09-14 전국평균. 본인 동네 가격으로 바꿔도 됩니다.
+                기본값은 오피넷 2026-09-15 전국평균. 본인 동네 가격으로 바꿔도 됩니다.
               </span>
             </label>
           </div>
