@@ -55,10 +55,10 @@ export default function Home() {
           베타
         </span>
         <h1 className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">
-          전기차 타면서 헷갈리는 것들, 여기서 확인하세요
+          전기차 타면서 궁금한 것들, 한눈에
         </h1>
         <p className="mx-auto mt-4 max-w-xl text-black/60 dark:text-white/60">
-          충전 요금, 유지비, 보조금처럼 전기차를 타면서 실제로 마주치는 질문과 도구를 모았습니다.
+          보조금 조회, 유지비 계산, 충전 요금 비교는 도구로, 오너들이 많이 묻는 질문은 가이드로 정리했습니다.
         </p>
       </section>
 
