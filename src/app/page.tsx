@@ -17,6 +17,11 @@ const TOOLS = [
     title: "충전 요금 비교",
     description: "완속·급속 충전 사업자별 요금을 비교해서 저렴한 카드를 고를 때 참고합니다.",
   },
+  {
+    href: "/tools/range-map",
+    title: "주행 가능 범위",
+    description: "현재 위치와 배터리 잔량으로 어디까지 갈 수 있는지 지도로 확인합니다.",
+  },
 ];
 
 const GUIDES_SHOWN = 6;
@@ -109,7 +114,7 @@ export default function Home() {
 
       <section className="mt-16">
         <h2 className="text-xl font-bold">바로 쓰는 도구</h2>
-        <div className="mt-6 grid gap-4 sm:grid-cols-3">
+        <div className="mt-6 grid gap-4 sm:grid-cols-2">
           {TOOLS.map((tool) => (
             <Link
               key={tool.href}
