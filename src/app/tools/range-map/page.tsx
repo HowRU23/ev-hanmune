@@ -79,19 +79,22 @@ declare global {
 
 type Trim = "standard" | "long-2wd" | "long-4wd";
 type WheelSize = "17" | "19";
-type Spec = { batteryKWh: number; rangeKm: number };
+type Spec = { batteryKWh: number; rangeKm: number; efficiencyKmPerKWh: number };
 
+// 기아 EV3 공식 가격표 PDF "정부 신고 에너지 소비효율 및 1회 충전 주행거리" 표 기준(복합).
+// 전비(km/kWh)는 주행거리를 배터리 용량으로 역산한 값이 아니라 표에 실린 인증값 그대로임
+// (인증 시험 방식 차이로 역산값보다 약 13% 낮게 나옴).
 const VEHICLE_SPECS: Record<Trim, Partial<Record<WheelSize, Spec>>> = {
   standard: {
-    "17": { batteryKWh: 58.3, rangeKm: 350 },
-    "19": { batteryKWh: 58.3, rangeKm: 347 },
+    "17": { batteryKWh: 58.3, rangeKm: 350, efficiencyKmPerKWh: 5.2 },
+    "19": { batteryKWh: 58.3, rangeKm: 347, efficiencyKmPerKWh: 5.2 },
   },
   "long-2wd": {
-    "17": { batteryKWh: 81.4, rangeKm: 500 },
-    "19": { batteryKWh: 81.4, rangeKm: 478 },
+    "17": { batteryKWh: 81.4, rangeKm: 500, efficiencyKmPerKWh: 5.4 },
+    "19": { batteryKWh: 81.4, rangeKm: 478, efficiencyKmPerKWh: 5.1 },
   },
   "long-4wd": {
-    "19": { batteryKWh: 81.4, rangeKm: 450 },
+    "19": { batteryKWh: 81.4, rangeKm: 450, efficiencyKmPerKWh: 4.8 },
   },
 };
 
@@ -122,6 +125,7 @@ export default function RangeMapToolPage() {
   const [trim, setTrim] = useState<Trim>("long-2wd");
   const [wheelSize, setWheelSize] = useState<WheelSize>("17");
   const [customEfficiency, setCustomEfficiency] = useState("");
+  const [efficiencyTouched, setEfficiencyTouched] = useState(false);
   const [batteryPercent, setBatteryPercent] = useState("50");
   const [position, setPosition] = useState<{ lat: number; lng: number } | null>(null);
   const [locationError, setLocationError] = useState<string | null>(null);
@@ -138,15 +142,25 @@ export default function RangeMapToolPage() {
 
   const effectiveWheelSize: WheelSize = trim === "long-4wd" ? "19" : wheelSize;
   const spec = VEHICLE_SPECS[trim][effectiveWheelSize];
+  const displayedEfficiency = efficiencyTouched
+    ? customEfficiency
+    : spec
+      ? spec.efficiencyKmPerKWh.toFixed(1)
+      : "";
 
   const ranges: Ranges | null = (() => {
     if (!spec) return null;
     const battery = parseFloat(batteryPercent);
     if (!Number.isFinite(battery) || battery < 0) return null;
 
-    const customEff = parseFloat(customEfficiency);
-    const totalRangeKm =
-      Number.isFinite(customEff) && customEff > 0 ? customEff * spec.batteryKWh : spec.rangeKm;
+    let totalRangeKm = spec.rangeKm;
+    if (efficiencyTouched) {
+      const customEff = parseFloat(customEfficiency);
+      if (Number.isFinite(customEff) && customEff > 0) {
+        // 실제 전비가 공인 전비 대비 어느 정도인지 비율로 환산해 공인 주행거리에 반영
+        totalRangeKm = spec.rangeKm * (customEff / spec.efficiencyKmPerKWh);
+      }
+    }
 
     return {
       totalRangeKm,
@@ -362,18 +376,20 @@ export default function RangeMapToolPage() {
           )}
 
           <label className="flex flex-col gap-1.5">
-            <span className="text-sm">최근 실제 전비 (선택, km/kWh)</span>
+            <span className="text-sm">전비 (km/kWh)</span>
             <input
               type="number"
               inputMode="decimal"
-              value={customEfficiency}
-              onChange={(e) => setCustomEfficiency(e.target.value)}
-              placeholder="비워두면 공인 주행거리로 계산합니다"
+              value={displayedEfficiency}
+              onChange={(e) => {
+                setEfficiencyTouched(true);
+                setCustomEfficiency(e.target.value);
+              }}
               className="rounded-lg border border-black/10 px-3 py-2 text-sm outline-none focus:border-blue-600 dark:border-white/10"
             />
             <span className="text-xs text-black/40 dark:text-white/40">
-              계기판이나 앱에서 확인한 본인의 실제 전비를 입력하면 계절, 운전 습관이 반영되어 더
-              정확해집니다.
+              선택한 조건의 공인 전비가 자동으로 입력됩니다. 계기판이나 앱에서 확인한 본인의 실제
+              전비로 바꾸면 계절, 운전 습관이 반영되어 더 정확해집니다.
             </span>
           </label>
         </div>
@@ -517,8 +533,9 @@ export default function RangeMapToolPage() {
             마진을 추가로 적용합니다.
           </li>
           <li>
-            최근 실제 전비를 입력하면 그 값과 배터리 용량으로 계산하고, 입력하지 않으면
-            기후에너지환경부(전 환경부) 인증 1회 충전 주행거리를 기준으로 계산합니다.
+            전비 칸에는 선택한 조건의 기후에너지환경부(전 환경부) 인증 전비가 기본으로 채워지며,
+            이 값을 실제 전비로 바꾸면 공인 전비 대비 실제 전비 비율만큼 주행 가능 거리를 다시
+            계산합니다.
           </li>
           <li>
             겨울철 저온, 고속 주행, 에어컨·히터 사용이 많으면 표시된 범위보다 실제로 갈 수 있는
