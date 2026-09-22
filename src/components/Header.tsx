@@ -9,6 +9,7 @@ const NAV_ITEMS = [
   { href: "/tools/ev-subsidy", label: "보조금 찾기" },
   { href: "/tools/cost-calculator", label: "유지비 계산기" },
   { href: "/tools/charging-rates", label: "충전 요금 비교" },
+  { href: "/tools/range-map", label: "주행 가능 범위" },
 ];
 
 export default function Header() {
